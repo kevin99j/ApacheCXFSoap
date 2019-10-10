@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="http://www.venko.com/Workers/" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Workers" 
+targetNamespace="http://www.venko.com/Workers/"
+ xmlns:xsd1="http://www.venko.com/service/WorkerService">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    	<xsd:import
+    		namespace="http://www.venko.com/service/WorkerService"
+    		schemaLocation="../schema/WorkerService.xsd">
+    	</xsd:import></xsd:schema></wsdl:types>
+  <wsdl:message name="GetWorkersRequest">
+    <wsdl:part element="xsd1:worker_request" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetWorkersResponse">
+    <wsdl:part element="xsd1:worker_response" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="Workers">
+    <wsdl:operation name="GetWorkers">
+      <wsdl:input message="tns:GetWorkersRequest"/>
+      <wsdl:output message="tns:GetWorkersResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WorkersSOAP" type="tns:Workers">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetWorkers">
+      <soap:operation soapAction="http://www.venko.com/Workers/GetWorkers"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Workers">
+    <wsdl:port binding="tns:WorkersSOAP" name="WorkersSOAP">
+      <soap:address location="http://www.venko.com/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
